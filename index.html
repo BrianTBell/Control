@@ -19,8 +19,9 @@
                 <li><a href="https://briantbell.github.io/EngHandbook/">Home</a></li>
                 <!--Modules-->
                 <hr>
-                <p>Topic</p>
+                <p>Control</p>
                 <li><a href="index.html">Equations</a></li>
+                <li><a href="cheatSheet.html">Cheat Sheet</a></li>
                 <li><a href="https://briantbell.github.io/EngHandbook/oops.html">Worked Examples</a></li>
                 <hr>
                 <!--Footnotes-->
@@ -42,15 +43,84 @@
     <!--Main Site Content-->
     <div class="content">
         <header>
-            <h1>Topic</h1>
+            <h1>Control</h1>
         </header>
         <main>
-            <!--Subtopic-->
+            <!--Overview-->
             <section>
-                <h2>Subheader</h2>
-                <p>Lorem.</p>
+                <h2>What is Control?</h2>
+                <p>Control systems engineering focuses on designing systems to regulate the behavior of devices or processes. It involves analyzing and controlling dynamic systems, like motors or robots, using feedback to maintain desired outputs despite disturbances. Key concepts include system modeling, stability, and performance optimization, applied in fields like robotics, aerospace, and manufacturing for precise and reliable operation.</p>
             </section>
             <hr>
+            <!--Equations-->
+            <section>
+                <h2>1. System Modeling</h2>
+                <p>Linear Time-Invariant (LTI) System: \( \dot{x} = A x + B u \)</p>
+                <p>Output Equation: \( y = C x + D u \)</p>
+                <p>Transfer Function: \( G(s) = \frac{Y(s)}{U(s)} = C (s I - A)^{-1} B + D \)</p>
+                <p>Mass-Spring-Damper (2nd Order): \( m \ddot{x} + b \dot{x} + k x = f(t) \)</p>
+                <p>Transfer Function (Mass-Spring-Damper): \( G(s) = \frac{X(s)}{F(s)} = \frac{1}{m s^2 + b s + k} \)</p>
+
+                <h2>2. Time Domain Analysis</h2>
+                <p>First-Order System: \( \tau \dot{y} + y = k u \), \( \tau = \text{time constant} \)</p>
+                <p>Second-Order System: \( \ddot{y} + 2 \zeta \omega_n \dot{y} + \omega_n^2 y = \omega_n^2 u \)</p>
+                <p>Natural Frequency: \( \omega_n = \sqrt{\frac{k}{m}} \)</p>
+                <p>Damping Ratio: \( \zeta = \frac{b}{2 \sqrt{m k}} \)</p>
+                <p>Step Response (First-Order): \( y(t) = k \left( 1 - e^{-t/\tau} \right) \)</p>
+                <p>Step Response (Second-Order, Underdamped): \( y(t) = 1 - \frac{e^{-\zeta \omega_n t}}{\sqrt{1 - \zeta^2}} \sin(\omega_d t + \phi) \), \( \omega_d = \omega_n \sqrt{1 - \zeta^2} \)</p>
+
+                <h2>3. Frequency Domain Analysis</h2>
+                <p>Transfer Function: \( G(s) = \frac{b_m s^m + \cdots + b_0}{a_n s^n + \cdots + a_0} \)</p>
+                <p>Frequency Response: \( G(j\omega) = |G(j\omega)| e^{j \angle G(j\omega)} \)</p>
+                <p>Gain: \( |G(j\omega)| = \sqrt{\text{Re}(G(j\omega))^2 + \text{Im}(G(j\omega))^2} \)</p>
+                <p>Phase: \( \angle G(j\omega) = \tan^{-1} \left( \frac{\text{Im}(G(j\omega))}{\text{Re}(G(j\omega))} \right) \)</p>
+                <p>Bode Plot Gain (dB): \( 20 \log_{10} |G(j\omega)| \)</p>
+
+                <h2>4. Stability Analysis</h2>
+                <p>Characteristic Equation: \( \det(s I - A) = 0 \)</p>
+                <p>Routh-Hurwitz Criterion: For \( a_n s^n + \cdots + a_0 = 0 \), all roots in left-half plane if Routh array has no sign changes.</p>
+                <p>Nyquist Stability Criterion: \( N = Z - P \), \( Z = \text{unstable poles} \), \( P = \text{open-loop poles} \), \( N = \text{encirclements of -1} \).</p>
+                <p>Gain Margin: \( GM = \frac{1}{|G(j\omega_{pc})|} \), \( \omega_{pc} = \text{phase crossover frequency} \)</p>
+                <p>Phase Margin: \( PM = 180^\circ + \angle G(j\omega_{gc}) \), \( \omega_{gc} = \text{gain crossover frequency} \)</p>
+
+                <h2>5. Feedback Control</h2>
+                <p>Closed-Loop Transfer Function: \( T(s) = \frac{G(s)}{1 + G(s)H(s)} \)</p>
+                <p>Error: \( E(s) = R(s) - Y(s) \), \( E_{ss} = \lim_{s \to 0} s E(s) \)</p>
+                <p>Steady-State Error (Step Input): \( E_{ss} = \frac{1}{1 + K_p} \), \( K_p = \lim_{s \to 0} G(s)H(s) \)</p>
+                <p>Steady-State Error (Ramp Input): \( E_{ss} = \frac{1}{K_v} \), \( K_v = \lim_{s \to 0} s G(s)H(s) \)</p>
+                <p>Steady-State Error (Parabolic Input): \( E_{ss} = \frac{1}{K_a} \), \( K_a = \lim_{s \to 0} s^2 G(s)H(s) \)</p>
+
+                <h2>6. PID Control</h2>
+                <p>Controller Output: \( u(t) = K_p e(t) + K_i \int e(t) \, dt + K_d \frac{de(t)}{dt} \)</p>
+                <p>Transfer Function (PID): \( G_c(s) = K_p + \frac{K_i}{s} + K_d s \)</p>
+                <p>Ziegler-Nichols Tuning (Quarter Decay): Adjust \( K_p, K_i, K_d \) based on critical gain \( K_u \) and period \( T_u \).</p>
+
+                <h2>7. State-Space Analysis</h2>
+                <p>State Equation: \( \dot{x} = A x + B u \)</p>
+                <p>Output Equation: \( y = C x + D u \)</p>
+                <p>Transfer Function from State-Space: \( G(s) = C (s I - A)^{-1} B + D \)</p>
+                <p>Eigenvalues (Poles): \( \det(s I - A) = 0 \)</p>
+                <p>Controllability Matrix: \( \mathcal{C} = [B \, AB \, A^2 B \, \dots \, A^{n-1} B] \)</p>
+                <p>Observability Matrix: \( \mathcal{O} = [C^T \, (CA)^T \, (CA^2)^T \, \dots \, (CA^{n-1})^T]^T \)</p>
+
+                <h2>8. Root Locus</h2>
+                <p>Characteristic Equation: \( 1 + G(s)H(s) = 0 \)</p>
+                <p>Angle Condition: \( \angle G(s)H(s) = (2k+1)180^\circ \), \( k = 0, \pm 1, \pm 2, \dots \)</p>
+                <p>Magnitude Condition: \( |G(s)H(s)| = 1 \)</p>
+                <p>Breakaway Points: Solve \( \frac{d}{ds} [G(s)H(s)] = 0 \)</p>
+
+                <h2>9. Frequency Response Design</h2>
+                <p>Lead Compensator: \( G_c(s) = K \frac{s + z}{s + p} \), \( |z| < |p| \)</p>
+                <p>Lag Compensator: \( G_c(s) = K \frac{s + z}{s + p} \), \( |z| > |p| \)</p>
+                <p>Phase Lead: Adds phase at higher frequencies to improve stability.</p>
+                <p>Phase Lag: Improves steady-state error at low frequencies.</p>
+
+                <h2>10. Discrete-Time Systems</h2>
+                <p>Z-Transform: \( X(z) = \sum_{n=0}^\infty x[n] z^{-n} \)</p>
+                <p>Difference Equation: \( y[n] + a_1 y[n-1] + \cdots = b_0 u[n] + b_1 u[n-1] + \cdots \)</p>
+                <p>Discrete Transfer Function: \( H(z) = \frac{Y(z)}{U(z)} = \frac{b_0 + b_1 z^{-1} + \cdots}{1 + a_1 z^{-1} + \cdots} \)</p>
+                <p>Stability: Poles of \( H(z) \) inside unit circle (\( |z| < 1 \)).</p>
+            </section>
             
         </main>
         <footer>
